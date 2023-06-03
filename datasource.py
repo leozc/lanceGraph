@@ -14,7 +14,7 @@ def generateRandomAddresses(array_size: int) -> np.ndarray:
 
   return addresses.astype(str)
 
-def generateRandomAddressPairs(n,m,processor :int  = 32) -> list:
+def generateRandomAddressPairs(n:int,m:int,processor :int  = 32) -> list:
     # return [{'from':i,'to':j} for i in generateRandomAddressesMP(n, int(processor/2)) 
             # for j in generateRandomAddressesMP(m, int(processor/2))]
     return [{'from':i,'to':j} for i in generateRandomAddresses(n) 

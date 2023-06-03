@@ -1,5 +1,4 @@
 import lancedb
-import web3
 import pandas as pd
 import datasource
 from lancedb.embeddings import with_embeddings
@@ -12,6 +11,7 @@ tbl = None
 if tbname in db.table_names():
     print ("table exists")
     tbl = db.open_table(tbname)
+    print(tbl.schema)
     addresstx = tbl.to_lance()
     x = duckdb.sql("SELECT * FROM addresstx USING SAMPLE 10").to_df()
 
@@ -20,9 +20,10 @@ if tbname in db.table_names():
 else:
     print ("creating table")
     
-    df = pd.DataFrame(datasource.generateRandomAddressPairs(200,1000000))
+    df = pd.DataFrame(datasource.generateRandomAddressPairs(3,100))
     
     print ("Dataframe created")
+    # can I do better? need to generate an embedding for {from:str , to:str}
     data = with_embeddings(func = datasource.map_address_to_float, column="from", wrap_api=False, data = df)
     data = with_embeddings(func = datasource.map_address_to_float, column="to", wrap_api=False, data = data)
 
