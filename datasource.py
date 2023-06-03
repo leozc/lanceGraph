@@ -1,5 +1,9 @@
 import numpy as np
 import os
+from dotenv import load_dotenv, find_dotenv
+_ = load_dotenv(find_dotenv()) # read local .env file
+
+CHAINSTORAGE_SDK_AUTH_TOKEN=os.environ['CHAINSTORAGE_SDK_AUTH_TOKEN']
 
 def generateRandomAddresses(array_size: int) -> np.ndarray:
   """Generates a NumPy array of random addresses.
